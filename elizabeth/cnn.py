@@ -8,7 +8,7 @@ from pyspark.sql.types import ArrayType, FloatType
 from bigdl.models.ml_pipeline.dl_classifier import DLClassifier
 from bigdl.nn.criterion import CategoricalCrossEntropy
 from bigdl.nn.layer import Sequential, Linear, Padding, TemporalConvolution as Conv1D, ReLU
-from bigdl.util.common import create_spark_conf
+from bigdl.util.common import create_spark_conf, init_engine
 
 import elizabeth
 
@@ -37,6 +37,7 @@ def main(train_x, train_y, test_x, test_y=None, word2vec=False, base='gs', asm=F
     # BigDL requires a special SparkConf.
     conf = create_spark_conf()
     spark = elizabeth.session(conf)
+    init_engine()
 
     # Load : DF[id, url, text, features, label?]
     # The DataFrames only have a labels column if labels are given.
